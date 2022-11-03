@@ -4,6 +4,11 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/user.module';
+import { BasketsModule } from './baskets/baskets.module';
+import { Basket } from './baskets/baskets.model';
+import { User } from './users/user.model';
+import { BasketProduct } from './baskets/basket.product.model';
+import { ProductsModule } from './products/products.module';
 
 @Module({
     imports: [
@@ -18,6 +23,8 @@ import { UsersModule } from './users/user.module';
             autoLoadModels: true,
         }),
         UsersModule,
+        BasketsModule,
+        ProductsModule,
     ],
     controllers: [AppController],
     providers: [AppService],
