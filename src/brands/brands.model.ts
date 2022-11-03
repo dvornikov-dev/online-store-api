@@ -1,7 +1,7 @@
 import { Column, Model, Table, DataType, HasMany, BelongsToMany } from 'sequelize-typescript';
-import { Product } from './products.model';
-import { TypeBrand } from './type.brand.model';
-import { Type } from './types.model';
+import { Product } from '../products/products.model';
+import { TypeBrand } from '../types/type.brand.model';
+import { Type } from '../types/types.model';
 
 @Table({ tableName: 'brands' })
 export class Brand extends Model<Brand> {

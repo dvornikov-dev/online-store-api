@@ -7,9 +7,9 @@ import {
     BelongsTo,
     HasMany,
 } from 'sequelize-typescript';
-import { Brand } from './brands.model';
+import { Brand } from '../brands/brands.model';
 import { ProductInfo } from './product.info.model';
-import { Type } from './types.model';
+import { Type } from '../types/types.model';
 
 @Table({ tableName: 'products' })
 export class Product extends Model<Product> {

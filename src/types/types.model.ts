@@ -1,6 +1,6 @@
 import { Column, Model, Table, DataType, HasMany, BelongsToMany } from 'sequelize-typescript';
-import { Brand } from './brands.model';
-import { Product } from './products.model';
+import { Brand } from '../brands/brands.model';
+import { Product } from '../products/products.model';
 import { TypeBrand } from './type.brand.model';
 
 @Table({ tableName: 'types' })

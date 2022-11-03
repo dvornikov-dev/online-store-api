@@ -5,10 +5,9 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/user.module';
 import { BasketsModule } from './baskets/baskets.module';
-import { Basket } from './baskets/baskets.model';
-import { User } from './users/user.model';
-import { BasketProduct } from './baskets/basket.product.model';
 import { ProductsModule } from './products/products.module';
+import { TypesModule } from './types/types.module';
+import { BrandsModule } from './brands/brands.module';
 
 @Module({
     imports: [
@@ -25,6 +24,8 @@ import { ProductsModule } from './products/products.module';
         UsersModule,
         BasketsModule,
         ProductsModule,
+        TypesModule,
+        BrandsModule,
     ],
     controllers: [AppController],
     providers: [AppService],
