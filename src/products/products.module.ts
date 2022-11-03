@@ -6,10 +6,11 @@ import { ProductInfo } from './product.info.model';
 import { ProductsController } from './products.controller';
 import { Product } from './products.model';
 import { ProductsService } from './products.service';
+import { TypeBrand } from './type.brand.model';
 
 @Module({
     controllers: [ProductsController],
     providers: [ProductsService],
-    imports: [SequelizeModule.forFeature([Product, ProductInfo, Type, Brand])],
+    imports: [SequelizeModule.forFeature([Product, ProductInfo, Type, Brand, TypeBrand])],
 })
 export class ProductsModule {}

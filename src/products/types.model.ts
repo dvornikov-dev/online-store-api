@@ -1,4 +1,7 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
+import { Column, Model, Table, DataType, HasMany, BelongsToMany } from 'sequelize-typescript';
+import { Brand } from './brands.model';
+import { Product } from './products.model';
+import { TypeBrand } from './type.brand.model';
 
 @Table({ tableName: 'types' })
 export class Type extends Model<Type> {
@@ -17,7 +20,9 @@ export class Type extends Model<Type> {
     })
     name: string;
 
-    // @ForeignKey(() => Type)
-    // @Column
-    // typeId: number;
+    @HasMany(() => Product)
+    products: Product;
+
+    @BelongsToMany(() => Brand, () => TypeBrand)
+    brands: Brand[];
 }
