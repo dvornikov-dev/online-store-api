@@ -8,6 +8,8 @@ import { BasketsModule } from './baskets/baskets.module';
 import { ProductsModule } from './products/products.module';
 import { TypesModule } from './types/types.module';
 import { BrandsModule } from './brands/brands.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
     imports: [
@@ -20,6 +22,9 @@ import { BrandsModule } from './brands/brands.module';
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
             autoLoadModels: true,
+        }),
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '..', 'static'),
         }),
         UsersModule,
         BasketsModule,
