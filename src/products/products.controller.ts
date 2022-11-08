@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Query, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Param,
+    Post,
+    Query,
+    Req,
+    UploadedFile,
+    UseInterceptors,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { Request } from 'express';
@@ -16,11 +25,11 @@ export class ProductsController {
         return this.productsService.findAll(query);
     }
 
-    // @Get('/:id')
-    // async getOne(@Req() req: Request): Promise<Product[]> {
-    //     console.log(req.params.id);
-    //     return this.productsService.findAll();
-    // }
+    @Get('/:id')
+    async getOne(@Param() params: { id: number }): Promise<Product> {
+        const { id } = params;
+        return this.productsService.getOne(id);
+    }
 
     @Post()
     @UseInterceptors(
@@ -32,13 +41,14 @@ export class ProductsController {
         }),
     )
     async create(@Req() req: Request, @UploadedFile() img: Express.Multer.File): Promise<Product> {
-        const { name, price, typeId, brandId } = req.body;
+        const { name, price, typeId, brandId, info } = req.body; // TODO: dto
         const product = await this.productsService.create(
             name,
             price,
             img.filename,
             typeId,
             brandId,
+            info,
         );
         return product;
     }

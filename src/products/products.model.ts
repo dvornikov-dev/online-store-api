@@ -61,5 +61,5 @@ export class Product extends Model<Product> {
     brand: Brand;
 
     @HasMany(() => ProductInfo)
-    productInfo: ProductInfo;
+    productInfo: ProductInfo[];
 }

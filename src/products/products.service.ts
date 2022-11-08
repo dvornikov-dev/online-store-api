@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { FindAllDto } from './dto/findAll.dto';
+import { ProductInfo } from './product.info.model';
 import { Product } from './products.model';
 
 @Injectable()
@@ -8,6 +9,8 @@ export class ProductsService {
     constructor(
         @InjectModel(Product)
         private productModel: typeof Product,
+        @InjectModel(ProductInfo)
+        private productInfoModel: typeof ProductInfo,
     ) {}
 
     async findAll(query: FindAllDto): Promise<{ rows: Product[]; count: number }> {
@@ -56,7 +59,7 @@ export class ProductsService {
     }
 
     // TODO: dto body decorator
-    async create(name, price, filename, brandId, typeId): Promise<Product> {
+    async create(name, price, filename, brandId, typeId, info = null): Promise<Product> {
         const product = await this.productModel.create({
             name,
             price,
@@ -64,6 +67,28 @@ export class ProductsService {
             brandId,
             typeId,
         });
+
+        if (info) {
+            info = JSON.parse(info); // TODO: add validation
+            info.forEach((i) => {
+                this.productInfoModel.create({
+                    title: i.title,
+                    description: i.description,
+                    productId: product.id,
+                });
+            });
+        }
         return product;
+    }
+
+    async getOne(id): Promise<Product> {
+        return this.productModel.findOne({
+            where: {
+                id,
+            },
+            include: {
+                model: ProductInfo,
+            },
+        });
     }
 }
