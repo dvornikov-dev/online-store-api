@@ -1,5 +1,7 @@
-import { Column, Model, Table, DataType, HasOne } from 'sequelize-typescript';
+import { Column, Model, Table, DataType, HasOne, BelongsToMany } from 'sequelize-typescript';
 import { Basket } from 'src/baskets/baskets.model';
+import { RoleUser } from 'src/roles/role-user.model';
+import { Role } from 'src/roles/roles.model';
 
 @Table({ tableName: 'users' })
 export class User extends Model<User> {
@@ -32,12 +34,8 @@ export class User extends Model<User> {
     })
     password: string;
 
-    //TODO: change to roleid
-    @Column({
-        type: DataType.STRING,
-        defaultValue: 'USER',
-    })
-    role: string;
+    @BelongsToMany(() => Role, () => RoleUser)
+    roles: Role[];
 
     @HasOne(() => Basket)
     bakset: Basket;

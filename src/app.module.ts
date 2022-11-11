@@ -11,6 +11,7 @@ import { BrandsModule } from './brands/brands.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
     imports: [
@@ -33,6 +34,7 @@ import { AuthModule } from './auth/auth.module';
         TypesModule,
         BrandsModule,
         AuthModule,
+        RolesModule,
     ],
     controllers: [AppController],
     providers: [AppService],

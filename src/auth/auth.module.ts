@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from 'src/users/user.model';
+import { UsersModule } from 'src/users/user.module';
 import { UsersService } from 'src/users/user.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -19,8 +20,9 @@ import { AuthService } from './auth.service';
             }),
             inject: [ConfigService],
         }),
+        UsersModule,
     ],
     controllers: [AuthController],
-    providers: [AuthService, UsersService],
+    providers: [AuthService],
 })
 export class AuthModule {}
