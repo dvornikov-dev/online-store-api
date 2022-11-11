@@ -10,10 +10,11 @@ import { TypesModule } from './types/types.module';
 import { BrandsModule } from './brands/brands.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({ isGlobal: true }),
         SequelizeModule.forRoot({
             dialect: 'postgres',
             host: process.env.POSTGRES_HOST,
@@ -31,6 +32,7 @@ import { join } from 'path';
         ProductsModule,
         TypesModule,
         BrandsModule,
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],
