@@ -6,6 +6,7 @@ import {
     Query,
     Req,
     UploadedFile,
+    UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -15,6 +16,9 @@ import { Product } from './products.model';
 import { ProductsService } from './products.service';
 import { editFileName } from './utils/editFileName';
 import { FindAllDto } from './dto/findAll.dto';
+import { Roles } from 'src/auth/roles.decorator';
+import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('product')
 export class ProductsController {
@@ -31,6 +35,8 @@ export class ProductsController {
         return this.productsService.getOne(id);
     }
 
+    @Roles('ADMIN')
+    @UseGuards(AuthGuard, RolesGuard)
     @Post()
     @UseInterceptors(
         FileInterceptor('img', {

@@ -13,11 +13,11 @@ export class UsersService {
     ) {}
 
     async findAll(): Promise<User[]> {
-        return this.userModel.findAll();
+        return this.userModel.findAll({ include: { all: true } });
     }
 
     async findByEmail(email: string): Promise<User> {
-        return this.userModel.findOne({ where: { email } });
+        return this.userModel.findOne({ where: { email }, include: { all: true } });
     }
 
     async create(userCreateDto: UserCreateDto, hashPassword: string): Promise<User> {

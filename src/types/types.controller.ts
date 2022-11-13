@@ -1,5 +1,8 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
+import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
+import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from 'src/auth/roles.decorator';
 import { Type } from './types.model';
 import { TypesService } from './types.service';
 
@@ -12,6 +15,8 @@ export class TypesController {
         return this.typesService.findAll();
     }
 
+    @Roles('ADMIN')
+    @UseGuards(AuthGuard, RolesGuard)
     @Post()
     async create(@Req() req: Request): Promise<Type> {
         const { name } = req.query;
