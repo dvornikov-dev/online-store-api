@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { FindAllDto } from './dto/findAll.dto';
+import { CreateProductDto } from './dto/product.dto';
 import { ProductInfo } from './product.info.model';
 import { Product } from './products.model';
 
@@ -58,19 +59,25 @@ export class ProductsService {
         return products;
     }
 
-    // TODO: dto body decorator
-    async create(name, price, filename, brandId, typeId, info = null): Promise<Product> {
+    async create(
+        { name, price, brandId, typeId, info = null }: CreateProductDto,
+        img: Express.Multer.File,
+    ): Promise<Product> {
+        if (!img) {
+            // TODO: error
+        }
         const product = await this.productModel.create({
+            // for key constraints
             name,
             price,
-            img: filename,
+            img: img.filename,
             brandId,
             typeId,
         });
 
         if (info) {
-            info = JSON.parse(info); // TODO: add validation
-            info.forEach((i) => {
+            const infoArray = JSON.parse(info); // TODO: add validation
+            infoArray.forEach((i) => {
                 this.productInfoModel.create({
                     title: i.title,
                     description: i.description,

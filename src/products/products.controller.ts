@@ -1,17 +1,16 @@
 import {
+    Body,
     Controller,
     Get,
     Param,
     Post,
     Query,
-    Req,
     UploadedFile,
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { Request } from 'express';
 import { Product } from './products.model';
 import { ProductsService } from './products.service';
 import { editFileName } from './utils/editFileName';
@@ -19,6 +18,7 @@ import { FindAllDto } from './dto/findAll.dto';
 import { Roles } from 'src/auth/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { CreateProductDto } from './dto/product.dto';
 
 @Controller('product')
 export class ProductsController {
@@ -46,16 +46,11 @@ export class ProductsController {
             }),
         }),
     )
-    async create(@Req() req: Request, @UploadedFile() img: Express.Multer.File): Promise<Product> {
-        const { name, price, typeId, brandId, info } = req.body; // TODO: dto
-        const product = await this.productsService.create(
-            name,
-            price,
-            img.filename,
-            typeId,
-            brandId,
-            info,
-        );
+    async create(
+        @Body() createProductDto: CreateProductDto,
+        @UploadedFile() img: Express.Multer.File,
+    ): Promise<Product> {
+        const product = await this.productsService.create(createProductDto, img);
         return product;
     }
 }

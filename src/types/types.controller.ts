@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { Request } from 'express';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
+import { TypeDto } from './dto/type.dto';
 import { Type } from './types.model';
 import { TypesService } from './types.service';
 
@@ -18,8 +18,7 @@ export class TypesController {
     @Roles('ADMIN')
     @UseGuards(AuthGuard, RolesGuard)
     @Post()
-    async create(@Req() req: Request): Promise<Type> {
-        const { name } = req.query;
+    async create(@Body() { name }: TypeDto): Promise<Type> {
         const type = await this.typesService.create(name);
         return type;
     }
