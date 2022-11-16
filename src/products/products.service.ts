@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { FindAllDto } from './dto/findAll.dto';
-import { CreateProductDto } from './dto/product.dto';
+import { FindAllDto } from './dto/find-all.dto';
+import { ProductCreateDto } from './dto/product.dto';
 import { ProductInfo } from './product.info.model';
 import { Product } from './products.model';
 
@@ -60,7 +60,7 @@ export class ProductsService {
     }
 
     async create(
-        { name, price, brandId, typeId, info = null }: CreateProductDto,
+        { name, price, brandId, typeId, info = null }: ProductCreateDto,
         img: Express.Multer.File,
     ): Promise<Product> {
         if (!img) {
@@ -97,5 +97,9 @@ export class ProductsService {
                 model: ProductInfo,
             },
         });
+    }
+
+    delete(id: string) {
+        return this.productModel.destroy({ where: { id } });
     }
 }

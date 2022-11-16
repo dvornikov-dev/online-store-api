@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
-import { CreateRoleDto } from './dto/role.dto';
+import { RoleCreateDto } from './dto/role.dto';
 import { RolesService } from './roles.service';
 
 @Controller('roles')
@@ -12,7 +12,7 @@ export class RolesController {
     @Roles('ADMIN')
     @UseGuards(AuthGuard, RolesGuard)
     @Post()
-    create(@Body() createRoleDto: CreateRoleDto) {
+    create(@Body() createRoleDto: RoleCreateDto) {
         return this.roleService.create(createRoleDto);
     }
 

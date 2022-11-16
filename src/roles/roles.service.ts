@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateRoleDto } from './dto/role.dto';
+import { RoleCreateDto } from './dto/role.dto';
 import { Role } from './roles.model';
 
 @Injectable()
 export class RolesService {
     constructor(@InjectModel(Role) private roleModel: typeof Role) {}
 
-    async create(createRoleDto: CreateRoleDto): Promise<Role> {
+    async create(createRoleDto: RoleCreateDto): Promise<Role> {
         return this.roleModel.create(createRoleDto);
     }
 

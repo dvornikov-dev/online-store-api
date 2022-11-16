@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     Post,
@@ -14,13 +15,14 @@ import { diskStorage } from 'multer';
 import { Product } from './products.model';
 import { ProductsService } from './products.service';
 import { editFileName } from './utils/editFileName';
-import { FindAllDto } from './dto/findAll.dto';
+import { FindAllDto } from './dto/find-all.dto';
 import { Roles } from 'src/auth/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { CreateProductDto } from './dto/product.dto';
+import { ProductCreateDto } from './dto/product.dto';
+import { ProductDeleteDto } from './dto/delete.dto';
 
-@Controller('product')
+@Controller('products')
 export class ProductsController {
     constructor(private readonly productsService: ProductsService) {}
 
@@ -47,10 +49,17 @@ export class ProductsController {
         }),
     )
     async create(
-        @Body() createProductDto: CreateProductDto,
+        @Body() createProductDto: ProductCreateDto,
         @UploadedFile() img: Express.Multer.File,
     ): Promise<Product> {
         const product = await this.productsService.create(createProductDto, img);
         return product;
+    }
+
+    @Roles('ADMIN')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Delete()
+    async delete(@Body() { id }: ProductDeleteDto) {
+        return await this.productsService.delete(id);
     }
 }

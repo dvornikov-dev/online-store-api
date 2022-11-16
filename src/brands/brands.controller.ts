@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { Request } from 'express';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
@@ -7,7 +6,7 @@ import { Brand } from './brands.model';
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/brand.dto';
 
-@Controller('brand')
+@Controller('brands')
 export class BrandsController {
     constructor(private readonly brandsService: BrandsService) {}
 

@@ -1,5 +1,5 @@
 import { Column, Model, Table, DataType, BelongsToMany } from 'sequelize-typescript';
-import { User } from 'src/users/user.model';
+import { User } from 'src/users/users.model';
 import { RoleUser } from './role-user.model';
 
 @Table({ tableName: 'roles' })

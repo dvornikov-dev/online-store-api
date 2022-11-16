@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsersModule } from './users/user.module';
+import { UsersModule } from './users/users.module';
 import { BasketsModule } from './baskets/baskets.module';
 import { ProductsModule } from './products/products.module';
 import { TypesModule } from './types/types.module';

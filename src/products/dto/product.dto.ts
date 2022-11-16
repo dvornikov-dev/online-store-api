@@ -1,6 +1,6 @@
 import { Length, IsNotEmpty } from 'class-validator';
 
-export class CreateProductDto {
+export class ProductCreateDto {
     @Length(4, 12)
     readonly name: string;
     @IsNotEmpty()

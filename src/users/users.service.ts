@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { RolesService } from 'src/roles/roles.service';
 import { UserCreateDto } from './dto/user-create.dto';
-import { User } from './user.model';
+import { User } from './users.model';
 
 @Injectable()
 export class UsersService {
