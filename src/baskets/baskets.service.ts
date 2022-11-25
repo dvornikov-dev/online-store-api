@@ -29,4 +29,15 @@ export class BasketsService {
         }
         return this.basketProductModel.create({ productId, basketId: basket.id });
     }
+
+    async deleteProduct(productId: number, userId: number) {
+        let basket = await this.basketModel.findOne({ where: { userId } });
+        if (!basket) {
+            basket = await this.basketModel.create({ userId });
+        }
+        return this.basketProductModel.destroy({
+            where: { productId, basketId: basket.id },
+            limit: 1,
+        });
+    }
 }
