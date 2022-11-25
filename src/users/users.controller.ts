@@ -11,8 +11,8 @@ export class UsersController {
 
     @UseGuards(AuthGuard, RolesGuard)
     @Get('/test')
-    async getHello(): Promise<User[]> {
-        const user = await this.usersService.findAll();
+    async getHello(): Promise<User> {
+        const user = await this.usersService.findById('1');
         return user;
     }
 
