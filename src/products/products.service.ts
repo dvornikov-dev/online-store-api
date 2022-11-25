@@ -99,7 +99,7 @@ export class ProductsService {
         });
     }
 
-    delete(id: string) {
+    delete(id: string): Promise<number> {
         return this.productModel.destroy({ where: { id } });
     }
 }

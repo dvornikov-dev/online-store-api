@@ -37,7 +37,7 @@ export class AuthService {
         return this.generateToken(user);
     }
 
-    private async validateUser(userDto: UserLoginDto) {
+    private async validateUser(userDto: UserLoginDto): Promise<User> {
         const user = await this.userService.findByEmail(userDto.email);
         if (!user) {
             throw new UnauthorizedException({ message: 'Invalid credintials' });

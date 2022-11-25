@@ -16,5 +16,6 @@ import { AuthModule } from 'src/auth/auth.module';
         SequelizeModule.forFeature([Product, ProductInfo, Type, Brand, TypeBrand]),
         AuthModule,
     ],
+    exports: [ProductsService],
 })
 export class ProductsModule {}

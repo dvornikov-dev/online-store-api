@@ -14,7 +14,7 @@ import { AuthService } from './auth.service';
             useFactory: async (configService: ConfigService) => ({
                 secret: configService.get<string>('PRIVATE_KEY'),
                 signOptions: {
-                    expiresIn: '1h',
+                    expiresIn: '24h',
                 },
             }),
             inject: [ConfigService],

@@ -59,7 +59,7 @@ export class ProductsController {
     @Roles('ADMIN')
     @UseGuards(AuthGuard, RolesGuard)
     @Delete()
-    async delete(@Body() { id }: ProductDeleteDto) {
+    async delete(@Body() { id }: ProductDeleteDto): Promise<number> {
         return await this.productsService.delete(id);
     }
 }

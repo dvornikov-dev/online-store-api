@@ -20,6 +20,10 @@ export class UsersService {
         return this.userModel.findOne({ where: { email }, include: { all: true } });
     }
 
+    async findById(id: string): Promise<User> {
+        return this.userModel.findOne({ where: { id }, include: { all: true } });
+    }
+
     async create(userCreateDto: UserCreateDto, hashPassword: string): Promise<User> {
         const user = await this.userModel.create({ ...userCreateDto, password: hashPassword });
         const role = await this.rolesService.getRoleByName('USER');
